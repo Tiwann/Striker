@@ -31,15 +31,11 @@ AStrikerCharacter::AStrikerCharacter()
 
 	bSprinting = false;
 	bCanSprint = true;
-
-	SprintMultiplier = 1.2f;
-	SprintTime = 1.0f;
 }
 
 void AStrikerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	SprintTimer = SprintTime;
 }
 
 void AStrikerCharacter::MoveActionTriggered(const FInputActionValue& ActionValue)
@@ -54,11 +50,28 @@ void AStrikerCharacter::MoveActionCompleted(const FInputActionValue& ActionValue
 
 void AStrikerCharacter::SprintActionTriggered(const FInputActionValue& ActionValue)
 {
-	SprintTimer -= GetWorld()->GetDeltaSeconds()
+	if(SprintCurrent >= 0.0f)
+	{
+		SprintCurrent -= GetWorld()->GetDeltaSeconds();
+		bSprinting = true;
+		SprintProcessed = FMath::Lerp(1.0f, SprintMultiplier, ActionValue.Get<float>());
+	} else
+	{
+		SprintCurrent = 0.0f;
+		bSprinting = false;
+	}
 }
 
 void AStrikerCharacter::SprintActionCompleted(const FInputActionValue& ActionValue)
 {
+	bSprinting = false;
+	if(SprintCurrent <= SprintMax)
+	{
+		SprintCurrent += GetWorld()->GetDeltaSeconds();
+	} else
+	{
+		SprintCurrent = SprintMax;
+	}
 	
 }
 

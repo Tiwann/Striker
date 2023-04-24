@@ -53,18 +53,13 @@ public:
 	uint8 bSprinting : 1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Striker Character")
-	float SprintTime;
+	float SprintMax = 5.0f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Striker Character")
-	float SprintTimer;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Striker Character")
-	float SprintTimerDecreaseSpeed = 0.005f;
-
+	float SprintCurrent = 0.0f;
 	
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Striker Character", meta=(UIMin=1.0, UIMax=2.0, ClampMin=1.0, ClampMax=2.0, Units="times"))
-	float SprintMultiplier;
+	float SprintMultiplier = 1.5f;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Striker Character")
 	float SprintProcessed;
