@@ -1,6 +1,5 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #pragma once
+#include "Logging/LogMacros.h"
 
-#include "CoreMinimal.h"
+DECLARE_LOG_CATEGORY_EXTERN(LogStriker, All, All);
 
